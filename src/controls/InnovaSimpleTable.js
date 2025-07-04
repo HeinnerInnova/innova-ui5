@@ -64,10 +64,8 @@ sap.ui.define(
           alternateRowColors: true,
           selectionMode: "MultiToggle",
           ariaLabelledBy: [],
-          rowMode: new AutoRowMode({
-            minRowCount: 1,
-            rowContentHeight: 85,
-          }),
+          visibleRowCountMode: "Auto",
+          rowHeight: 85,
           rowSelectionChange: (oEvent) => this.fireRowSelectionChange(oEvent),
           firstVisibleRowChanged: (oEvent) =>
             this.fireFirstVisibleRowChanged(oEvent),
