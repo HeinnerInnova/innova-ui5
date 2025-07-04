@@ -37,6 +37,10 @@ sap.ui.define(
           titleText: { type: "string" },
           factoryName: { type: "string" },
           factory: { type: "string" },
+
+          selectionMode: { type: "string", defaultValue: "MultiToggle" },
+          alternateRowColors: { type: "boolean", defaultValue: true },
+          ariaLabelledBy: { type: "string" },
         },
         events: {
           rowSelectionChange: {},
@@ -75,6 +79,10 @@ sap.ui.define(
       onBeforeRendering() {
         const oTable = this.getAggregation("_table");
         if (!oTable) return;
+
+        oTable.setSelectionMode(this.getSelectionMode());
+        oTable.setAlternateRowColors(this.getAlternateRowColors());
+        oTable.setAriaLabelledBy(this.getAriaLabelledBy());
 
         oTable.bindRows({
           path: this.getRowsPath(),
@@ -123,7 +131,7 @@ sap.ui.define(
         });
         oTable.addExtension(oToolbar);
       },
-      
+
       getTable() {
         return this.getAggregation("_table");
       },
