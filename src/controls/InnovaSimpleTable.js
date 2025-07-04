@@ -2,7 +2,6 @@ sap.ui.define(
   [
     "sap/ui/core/Control",
     "sap/ui/table/Table",
-    "sap/ui/table/rowmodes/AutoRowMode",
     "sap/m/OverflowToolbar",
     "sap/m/Button",
     "sap/m/Title",
@@ -17,7 +16,6 @@ sap.ui.define(
   function (
     Control,
     Table,
-    AutoRowMode,
     OverflowToolbar,
     Button,
     Title,
