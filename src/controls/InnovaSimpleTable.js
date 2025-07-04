@@ -40,7 +40,6 @@ sap.ui.define(
 
           selectionMode: { type: "string", defaultValue: "MultiToggle" },
           alternateRowColors: { type: "boolean", defaultValue: true },
-          ariaLabelledBy: { type: "string" },
         },
         events: {
           rowSelectionChange: {},
@@ -82,7 +81,6 @@ sap.ui.define(
 
         oTable.setSelectionMode(this.getSelectionMode());
         oTable.setAlternateRowColors(this.getAlternateRowColors());
-        oTable.setAriaLabelledBy(this.getAriaLabelledBy());
 
         oTable.bindRows({
           path: this.getRowsPath(),
