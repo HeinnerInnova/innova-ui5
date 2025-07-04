@@ -123,6 +123,10 @@ sap.ui.define(
         });
         oTable.addExtension(oToolbar);
       },
+      
+      getTable() {
+        return this.getAggregation("_table");
+      },
 
       _createEditButtons() {
         const fn = (eventName, icon, tooltip, visibleBinding) =>
