@@ -7,7 +7,7 @@ sap.ui.define([], function () {
     types: [],
     interfaces: [],
     controls: ["innova.controls.InnovaSimpleTable"],
-    elements: []
+    elements: [],
   });
   return innova;
 });

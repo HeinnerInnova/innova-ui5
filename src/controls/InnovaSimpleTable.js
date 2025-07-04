@@ -12,7 +12,7 @@ sap.ui.define(
     "sap/m/VBox",
     "sap/m/Input",
     "sap/m/Label",
-    "sap/ui/core/CustomData"
+    "sap/ui/core/CustomData",
   ],
   function (
     Control,
@@ -38,7 +38,7 @@ sap.ui.define(
           enableEditionPath: { type: "string" },
           titleText: { type: "string" },
           factoryName: { type: "string" },
-          factory: { type: "any" }  // ✅ Nueva propiedad
+          factory: { type: "any" }, // ✅ Nueva propiedad
         },
         events: {
           rowSelectionChange: {},
@@ -48,15 +48,15 @@ sap.ui.define(
           pressDelete: {},
           pressAdd: {},
           pressCancel: {},
-          pressEdit: {}
+          pressEdit: {},
         },
         aggregations: {
           _table: {
             type: "sap.ui.table.Table",
             multiple: false,
-            visibility: "hidden"
-          }
-        }
+            visibility: "hidden",
+          },
+        },
       },
 
       init() {
@@ -66,11 +66,11 @@ sap.ui.define(
           ariaLabelledBy: [],
           rowMode: new AutoRowMode({
             minRowCount: 1,
-            rowContentHeight: 85
+            rowContentHeight: 85,
           }),
           rowSelectionChange: (oEvent) => this.fireRowSelectionChange(oEvent),
           firstVisibleRowChanged: (oEvent) =>
-            this.fireFirstVisibleRowChanged(oEvent)
+            this.fireFirstVisibleRowChanged(oEvent),
         });
 
         this.setAggregation("_table", oTable);
@@ -82,7 +82,7 @@ sap.ui.define(
 
         oTable.bindRows({
           path: this.getRowsPath(),
-          templateShareable: true
+          templateShareable: true,
         });
 
         // ✅ Usa la factory externa si la pasaron, si no, usa la interna
@@ -92,7 +92,7 @@ sap.ui.define(
           path: this.getColumnsPath(),
           sorter: { path: "COL_POS", descending: false },
           filters: [{ path: "TECH", operator: "NE", value1: "X" }],
-          factory: fnFactory
+          factory: fnFactory,
         });
 
         const oModel = this.getModel("Settings");
@@ -106,8 +106,8 @@ sap.ui.define(
           content: [
             new Title({ text: this.getTitleText() }),
             new ToolbarSpacer(),
-            ...this._createEditButtons()
-          ]
+            ...this._createEditButtons(),
+          ],
         });
         oTable.addExtension(oToolbar);
       },
@@ -118,16 +118,46 @@ sap.ui.define(
             icon,
             tooltip,
             visible: visibleBinding,
-            press: () => this.fireEvent(eventName)
+            press: () => this.fireEvent(eventName),
           });
 
         return [
-          fn("pressSave", "sap-icon://save", "{main>/textPool/KX70}", "{Settings>/enableEdition}"),
-          fn("pressCopy", "sap-icon://copy", "{main>/textPool/KX68}", "{Settings>/enableEdition}"),
-          fn("pressDelete", "sap-icon://delete", "{main>/textPool/KX30}", "{Settings>/enableEdition}"),
-          fn("pressAdd", "sap-icon://add", "{main>/textPool/KX69}", "{Settings>/enableEdition}"),
-          fn("pressCancel", "sap-icon://decline", "{main>/textPool/KX32}", "{Settings>/enableEdition}"),
-          fn("pressEdit", "sap-icon://edit", "{main>/textPool/K071}", "{= !${Settings>/enableEdition} }")
+          fn(
+            "pressSave",
+            "sap-icon://save",
+            "{main>/textPool/KX70}",
+            "{Settings>/enableEdition}"
+          ),
+          fn(
+            "pressCopy",
+            "sap-icon://copy",
+            "{main>/textPool/KX68}",
+            "{Settings>/enableEdition}"
+          ),
+          fn(
+            "pressDelete",
+            "sap-icon://delete",
+            "{main>/textPool/KX30}",
+            "{Settings>/enableEdition}"
+          ),
+          fn(
+            "pressAdd",
+            "sap-icon://add",
+            "{main>/textPool/KX69}",
+            "{Settings>/enableEdition}"
+          ),
+          fn(
+            "pressCancel",
+            "sap-icon://decline",
+            "{main>/textPool/KX32}",
+            "{Settings>/enableEdition}"
+          ),
+          fn(
+            "pressEdit",
+            "sap-icon://edit",
+            "{main>/textPool/K071}",
+            "{= !${Settings>/enableEdition} }"
+          ),
         ];
       },
 
@@ -144,7 +174,7 @@ sap.ui.define(
             new Text({
               visible: "{= !%{Settings>/enableEdition} }",
               text: `{${path}}`,
-              wrapping: true
+              wrapping: true,
             }),
             new Input({
               value: `{${path}}`,
@@ -157,14 +187,14 @@ sap.ui.define(
                     return context.TECH_COMP !== "X";
                   }
                   return isEdit === "X";
-                }
+                },
               },
               customData: [
                 new CustomData({ key: "domName", value: sDomName }),
-                new CustomData({ key: "lowercase", value: context.LOWERCASE })
-              ]
-            })
-          ]
+                new CustomData({ key: "lowercase", value: context.LOWERCASE }),
+              ],
+            }),
+          ],
         });
 
         return new Column({
@@ -173,7 +203,7 @@ sap.ui.define(
             text: "{Settings>SCRTEXT_L}",
             tooltip: "{Settings>SCRTEXT_L}",
             wrapping: true,
-            wrappingType: "Hyphenated"
+            wrappingType: "Hyphenated",
           }),
           autoResizable: true,
           filterProperty: sFieldname,
@@ -183,8 +213,9 @@ sap.ui.define(
           showSortMenuEntry: false,
           sortProperty: sFieldname,
           template,
-          visible: "{= %{Settings>TECH} !== 'X' && %{Settings>NO_OUT} !== 'X' }",
-          width: "auto"
+          visible:
+            "{= %{Settings>TECH} !== 'X' && %{Settings>NO_OUT} !== 'X' }",
+          width: "auto",
         });
       },
 
@@ -194,7 +225,7 @@ sap.ui.define(
         oRm.openEnd();
         oRm.renderControl(oControl.getAggregation("_table"));
         oRm.close("div");
-      }
+      },
     });
   }
 );
