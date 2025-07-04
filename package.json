@@ -1,0 +1,11 @@
+{
+  "name": "innova-ui5",
+  "version": "1.0.0",
+  "description": "Librería SAPUI5 de controles personalizados",
+  "main": "src/library.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HeinnerInnova/innova-ui5.git"
+  },
+  "license": "MIT"
+}
