@@ -38,7 +38,7 @@ sap.ui.define(
           enableEditionPath: { type: "string" },
           titleText: { type: "string" },
           factoryName: { type: "string" },
-          factory: { type: "any" }, // ✅ Nueva propiedad
+          factory: { type: "string" },
         },
         events: {
           rowSelectionChange: {},
@@ -85,8 +85,24 @@ sap.ui.define(
           templateShareable: true,
         });
 
-        // ✅ Usa la factory externa si la pasaron, si no, usa la interna
-        const fnFactory = this.getFactory() || this._internalFactory.bind(this);
+        let fnFactory;
+        const sFactoryName = this.getFactory();
+        const oController = this.getController();
+
+        if (sFactoryName && oController) {
+          const sNormalizedFactoryName = sFactoryName.startsWith(".")
+            ? sFactoryName.substring(1)
+            : sFactoryName;
+
+          let fnRef = oController[sNormalizedFactoryName];
+          if (typeof fnRef === "function") {
+            fnFactory = fnRef.bind(oController);
+          }
+        }
+
+        if (!fnFactory) {
+          fnFactory = this._internalFactory.bind(this);
+        }
 
         oTable.bindAggregation("columns", {
           path: this.getColumnsPath(),
